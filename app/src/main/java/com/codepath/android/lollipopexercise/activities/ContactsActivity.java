@@ -1,6 +1,7 @@
 package com.codepath.android.lollipopexercise.activities;
 
 import android.os.Bundle;
+import android.support.design.widget.CoordinatorLayout;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.GridLayoutManager;
@@ -21,7 +22,7 @@ public class ContactsActivity extends AppCompatActivity {
     private RecyclerView rvContacts;
     private ContactsAdapter mAdapter;
     private List<Contact> contacts;
-    private RelativeLayout rlMainContent;
+    private CoordinatorLayout rlMainContent;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,7 +31,7 @@ public class ContactsActivity extends AppCompatActivity {
 
         // Find RecyclerView and bind to adapter
         rvContacts = (RecyclerView) findViewById(R.id.rvContacts);
-
+      rlMainContent = (CoordinatorLayout) findViewById(R.id.rlMainContent);
         // allows for optimizations
         rvContacts.setHasFixedSize(true);
 
@@ -68,6 +69,7 @@ public class ContactsActivity extends AppCompatActivity {
         switch (id) {
             case R.id.action_add:
                 mAdapter.addContact(Contact.getRandomContact(this));
+              rvContacts.scrollToPosition(mAdapter.getItemCount()-1);
                 displaySnackbar();
                 break;
         }
@@ -75,7 +77,6 @@ public class ContactsActivity extends AppCompatActivity {
     }
 
     private void displaySnackbar() {
-        rlMainContent = (RelativeLayout) findViewById(R.id.rlMainContent);
         Snackbar.make(rlMainContent, "Contact added", Snackbar.LENGTH_LONG)
                 .setAction("Undo", new View.OnClickListener() {
                     @Override
