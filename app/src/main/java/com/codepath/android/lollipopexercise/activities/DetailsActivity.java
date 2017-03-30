@@ -7,6 +7,9 @@ import android.graphics.Bitmap;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Looper;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.graphics.Palette;
 import android.view.MenuItem;
@@ -27,6 +30,7 @@ public class DetailsActivity extends AppCompatActivity {
     private TextView tvName;
     private TextView tvPhone;
     private View vPalette;
+    private FloatingActionButton fab;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,6 +41,13 @@ public class DetailsActivity extends AppCompatActivity {
         tvName = (TextView) findViewById(R.id.tvName);
         tvPhone = (TextView) findViewById(R.id.tvPhone);
         vPalette = findViewById(R.id.vPalette);
+        fab = (FloatingActionButton) findViewById(R.id.fab);
+       // fab.setVisibility(View.INVISIBLE);
+        fab.setOnClickListener(new View.OnClickListener() {
+            @Override public void onClick(View view) {
+                makeCall();
+            }
+        });
 
         // Extract contact from bundle
         mContact = (Contact)getIntent().getExtras().getSerializable(EXTRA_CONTACT);
@@ -88,6 +99,16 @@ public class DetailsActivity extends AppCompatActivity {
 
         tvName.setText(mContact.getName());
         tvPhone.setText(mContact.getNumber());
+
+    }
+
+    @Override protected void onResume() {
+        super.onResume();
+        new Handler(Looper.myLooper()).postDelayed(new Runnable() {
+            @Override public void run() {
+               enterReveal(fab);
+            }
+        },200);
     }
 
     @Override
@@ -95,6 +116,12 @@ public class DetailsActivity extends AppCompatActivity {
         switch (item.getItemId()) {
             // Respond to the action bar's Up/Home button
             case android.R.id.home:
+                exitReveal(fab);
+                new Handler(Looper.getMainLooper()).postDelayed(new Runnable() {
+                    @Override public void run() {
+                        DetailsActivity.super.onBackPressed();
+                    }
+                },200);
 
                 return true;
         }
@@ -102,7 +129,15 @@ public class DetailsActivity extends AppCompatActivity {
     }
 
     @Override public void onBackPressed() {
-        super.onBackPressed();
+        exitReveal(fab);
+        new Handler(Looper.getMainLooper()).postDelayed(new Runnable() {
+            @Override public void run() {
+                exitReveal(fab);
+                DetailsActivity.super.onBackPressed();
+            }
+        },200);
+
+
     }
 
     private void makeCall(){
