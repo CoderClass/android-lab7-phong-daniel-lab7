@@ -49,6 +49,16 @@ public class ContactsAdapter extends RecyclerView.Adapter<ContactsAdapter.VH> {
         return mContacts.size();
     }
 
+    public void addContact(Contact contact) {
+        mContacts.add(contact);
+        notifyItemRangeInserted(mContacts.size()-1, 1);
+    }
+
+    public void removeLastContact() {
+        mContacts.remove(mContacts.size()-1);
+        notifyItemRangeRemoved(mContacts.size(), 1);
+    }
+
     // Provide a reference to the views for each contact item
     public final static class VH extends RecyclerView.ViewHolder {
         final View rootView;

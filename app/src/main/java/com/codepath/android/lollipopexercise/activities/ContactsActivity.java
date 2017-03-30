@@ -1,11 +1,14 @@
 package com.codepath.android.lollipopexercise.activities;
 
 import android.os.Bundle;
+import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.RelativeLayout;
 
 import com.codepath.android.lollipopexercise.R;
 import com.codepath.android.lollipopexercise.adapters.ContactsAdapter;
@@ -18,6 +21,7 @@ public class ContactsActivity extends AppCompatActivity {
     private RecyclerView rvContacts;
     private ContactsAdapter mAdapter;
     private List<Contact> contacts;
+    private RelativeLayout rlMainContent;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -61,6 +65,24 @@ public class ContactsActivity extends AppCompatActivity {
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
 
+        switch (id) {
+            case R.id.action_add:
+                mAdapter.addContact(Contact.getRandomContact(this));
+                displaySnackbar();
+                break;
+        }
         return super.onOptionsItemSelected(item);
+    }
+
+    private void displaySnackbar() {
+        rlMainContent = (RelativeLayout) findViewById(R.id.rlMainContent);
+        Snackbar.make(rlMainContent, "Contact added", Snackbar.LENGTH_LONG)
+                .setAction("Undo", new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        mAdapter.removeLastContact();
+                    }
+                })
+                .show(); // Don’t forget to show!
     }
 }
