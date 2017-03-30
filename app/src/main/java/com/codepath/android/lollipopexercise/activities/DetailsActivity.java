@@ -3,6 +3,7 @@ package com.codepath.android.lollipopexercise.activities;
 import android.graphics.Bitmap;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.graphics.Palette;
 import android.view.MenuItem;
@@ -22,6 +23,7 @@ public class DetailsActivity extends AppCompatActivity {
     private TextView tvName;
     private TextView tvPhone;
     private View vPalette;
+    private FloatingActionButton fab;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,6 +34,7 @@ public class DetailsActivity extends AppCompatActivity {
         tvName = (TextView) findViewById(R.id.tvName);
         tvPhone = (TextView) findViewById(R.id.tvPhone);
         vPalette = findViewById(R.id.vPalette);
+        fab = (FloatingActionButton) findViewById(R.id.fab);
 
         // Extract contact from bundle
         mContact = (Contact)getIntent().getExtras().getSerializable(EXTRA_CONTACT);
