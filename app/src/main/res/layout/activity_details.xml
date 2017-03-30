@@ -4,6 +4,7 @@
     android:layout_height="match_parent">
 
     <ImageView
+        android:transitionName="profile"
         android:id="@+id/ivProfile"
         android:scaleType="centerCrop"
         android:layout_width="match_parent"
@@ -18,11 +19,13 @@
 
         <View
             android:id="@+id/vPalette"
+            android:transitionName="palette"
             android:layout_width="match_parent"
             android:layout_height="match_parent" />
 
         <TextView
             android:id="@+id/tvName"
+            android:transitionName="text"
             android:layout_centerInParent="true"
             android:textSize="@dimen/contact_text_size"
             android:textColor="@android:color/black"

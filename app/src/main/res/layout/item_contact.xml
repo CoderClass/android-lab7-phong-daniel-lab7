@@ -16,6 +16,7 @@
         android:layout_height="match_parent">
 
         <ImageView
+            android:transitionName="profile"
             android:id="@+id/ivProfile"
             android:layout_width="match_parent"
             android:layout_height="@dimen/grid_profile_height"
@@ -28,10 +29,12 @@
 
             <View
                 android:id="@+id/vPalette"
+                android:transitionName="palette"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent" />
 
             <TextView
+                android:transitionName="text"
                 android:id="@+id/tvName"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
